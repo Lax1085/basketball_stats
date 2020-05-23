@@ -1,17 +1,29 @@
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <seasonAverages :players="players"/>
+    <div v-if="!isLoading">
+      <seasonAverages :players="players"/>
+      <lastTenGames :players="players"/>
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import seasonAverages from './components/seasonAverages.vue'
-
+import lastTenGames from './components/lastTenGames.vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 export default {
   name: 'App',
   components: {
-    seasonAverages
+    seasonAverages,
+    lastTenGames
   },
   data(){
       return {
@@ -20,9 +32,11 @@ export default {
       }
   },
   methods:{
-    async getPlayers(){
+    async getPlayerData(playerID){
       try{
-        const response = await fetch("https://www.balldontlie.io/api/v1/players/237")
+        let url="https://www.balldontlie.io/api/v1/players/"+playerID
+        console.log(url);
+        const response = await fetch(url)
         const data = await response.json()
         //this.players={data};
         this.players = [...this.players, data];
@@ -34,7 +48,15 @@ export default {
     }
   },
   mounted(){
-    this.getPlayers();
+    /*for(const value of this.initPlayers){
+      this.getPlayers(value);
+    }*/
+  },
+  created(){
+    if(this.players.length==0){
+      this.getPlayerData(237)
+      
+    }
   }
 }
 </script>

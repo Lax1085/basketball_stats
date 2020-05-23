@@ -1,46 +1,55 @@
 <template>
 <div id="seasonAverages" v-if="players.length > 0" class="test">
-<h4>Season Averages</h4>
+<h4>'18-'19 Season Averages</h4>
 <div v-for="player in players" :key="player.id">
-  <h5>{{player.first_name}} {{player.last_name}} </h5>
-  <h6>Position: {{player.position}} | Team: {{player.team.abbreviation}} </h6>
+  <h5>{{player.first_name}} {{player.last_name}}</h5>
+  <h6>Position: {{player.position}} | Team:
+    <!--<img v-bind:src="'./images/' + player.team.abbreviation + '.gif' " />-->
+
+
+
+     {{player.team.full_name}} </h6>
     <p v-if="isLoading">
-      isLoading
+      Loading
     </p>
-    <table v-if="playerAverages[player.id] && !isLoading" :data="playerAverages">
-      <tr>
-        <th>GP</th>
-        <th>MIN</th>
-        <th>FGM</th>
-        <th>FGA</th>
-        <th>FGPCT</th>
-        <th>FG3M</th>
-        <th>FG3A</th>
-        <th>FG3PCT</th>
-        <th>REB</th>
-        <th>AST</th>
-        <th>STL</th>
-        <th>BLK</th>
-        <th>PTS</th>
-      </tr>
-      <tr>
-        <td>{{playerAverages[player.id].games_played}}</td>
-        <td>{{playerAverages[player.id].min}}</td>
-        <td>{{playerAverages[player.id].fgm}}</td>
-        <td>{{playerAverages[player.id].fga}}</td>
-        <td>{{playerAverages[player.id].fg_pct}}</td>
-        <td>{{playerAverages[player.id].fg3m}}</td>
-        <td>{{playerAverages[player.id].fg3a}}</td>
-        <td>{{playerAverages[player.id].fg3_pct}}</td>
-        <td>{{playerAverages[player.id].reb}}</td>
-        <td>{{playerAverages[player.id].ast}}</td>
-        <td>{{playerAverages[player.id].stl}}</td>
-        <td>{{playerAverages[player.id].blk}}</td>
-        <td>{{playerAverages[player.id].pts}}</td>
-      </tr>
+    <table class="table" v-else-if="playerAverages[player.id]" :data="playerAverages">
+      <thead>
+        <tr>
+        <th scope="col">GP</th>
+        <th scope="col">MIN</th>
+        <th scope="col">FGM</th>
+        <th scope="col">FGA</th>
+        <th scope="col">FGPCT</th>
+        <th scope="col">FG3M</th>
+        <th scope="col">FG3A</th>
+        <th scope="col">FG3PCT</th>
+        <th scope="col">REB</th>
+        <th scope="col">AST</th>
+        <th scope="col">STL</th>
+        <th scope="col">BLK</th>
+        <th scope="col">PTS</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr>
+          <td>{{playerAverages[player.id].games_played}}</td>
+          <td>{{playerAverages[player.id].min}}</td>
+          <td>{{playerAverages[player.id].fgm}}</td>
+          <td>{{playerAverages[player.id].fga}}</td>
+          <td>{{playerAverages[player.id].fg_pct}}</td>
+          <td>{{playerAverages[player.id].fg3m}}</td>
+          <td>{{playerAverages[player.id].fg3a}}</td>
+          <td>{{playerAverages[player.id].fg3_pct}}</td>
+          <td>{{playerAverages[player.id].reb}}</td>
+          <td>{{playerAverages[player.id].ast}}</td>
+          <td>{{playerAverages[player.id].stl}}</td>
+          <td>{{playerAverages[player.id].blk}}</td>
+          <td>{{playerAverages[player.id].pts}}</td>
+        </tr>
+      </tbody>
     </table>
     <p v-else>
-       No stats
+       No stats found. {{isLoading}}
     </p>
 </div>
 </div>
@@ -81,14 +90,14 @@ export default{
         for(const value of data.data) {
           this.playerAverages[value.player_id]= value;
         }
-        console.debug(this.playerAverages);
         this.isLoading=false
+        //console.debug(this.playerAverages);
       }catch(error){
           console.error(error);
       }
     }
   },
-  updated(){
+  mounted(){
     this.getSeasonData();
   }
 }
