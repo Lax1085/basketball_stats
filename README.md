@@ -1,24 +1,9 @@
 # basketball_app
 
-## Project setup
-```
-npm install
-```
+This just my sandbox for learning VueJS. Attempting to create a webpage that allows users to compares statistics across a season. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![alt text](https://i.imgur.com/KROtQVv.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Using https://www.balldontlie.io/#introduction as the API for data.
