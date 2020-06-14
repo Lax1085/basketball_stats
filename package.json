@@ -14,9 +14,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "express":"*",
-    "body-parser":"*",
-    "bcrypt": "^0.8.5"
+    "express":"*"    
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
