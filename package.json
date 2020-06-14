@@ -46,5 +46,5 @@
       "build": "vue-cli-service build",
       "lint": "vue-cli-service lint",
       "start": "node server.js" <--- add this line under scripts block
-    },  
+    }  
 }
